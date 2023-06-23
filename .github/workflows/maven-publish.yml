@@ -1,0 +1,51 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on: push
+permissions:
+ contents: write
+jobs:
+ build:
+  runs-on: ubuntu-latest
+  permissions: write-all
+  steps:
+      - name: Checkout-step
+        uses: actions/checkout@v3
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: maven    
+      - uses: actions/checkout@v3
+      - name: Build and Run Tests
+        if: success() || failure() # always run even if the previous step fails
+        #run: mvn --batch-mode --update-snapshots package
+        run: |
+          #mvn test
+          mvn --batch-mode --update-snapshots package
+          mkdir -p results
+          
+      - name: Loop_Thru_Results_files
+      # Loop thru all xml file in the surefire-reports base64url the file send to pulse  (note base64 creates + base64 creates with -)
+        if: success() || failure() # always run even if the previous step fails
+        run: |
+           my_path='./target/surefire-reports'
+           for file in $( find ./target/surefire-reports -type f -name "*.xml")
+           do
+             echo -e ___________________________________________________________
+             echo -e $file
+             curl --request POST https://pulse-7.qtestnet.com/webhook/53b32c57-368c-4b9b-a4e0-af11389c5438 -d "projectId=106715" -d "testcycle=4222884" -d "result=$(echo $(cat $file) | basenc --base64url | tr -d \\n)"             
+             echo -e ------------------------------------------------------------
+           done         
+          
+      - name: Upload results
+        if: success() || failure() # always run even if the previous step fails
+        uses: actions/upload-artifact@v3
+        with:
+          name: Result OutPut
+          path: /home/runner/work/JunitOpenTestReporting/JunitOpenTestReporting/target/surefire-reports # or path/to/artifact
+          if-no-files-found: error # 'warn' or 'ignore' are also available, defaults to `warn`
+    
