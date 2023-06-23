@@ -32,12 +32,15 @@ jobs:
       # Loop thru all xml file in the surefire-reports base64url the file send to pulse  (note base64 creates + base64 creates with -)
         if: success() || failure() # always run even if the previous step fails
         run: |
-           my_path='./target/surefire-reports'
+           #my_path='./target/surefire-reports'
+           my_project=106715
+           my_TestCycle=4228287
            for file in $( find ./target/surefire-reports -type f -name "*.xml")
            do
              echo -e ___________________________________________________________
              echo -e $file
-             curl --request POST https://pulse-7.qtestnet.com/webhook/53b32c57-368c-4b9b-a4e0-af11389c5438 -d "projectId=106715" -d "testcycle=4228287" -d "result=$(echo $(cat $file) | basenc --base64url | tr -d \\n)"             
+             #curl --request POST https://pulse-7.qtestnet.com/webhook/53b32c57-368c-4b9b-a4e0-af11389c5438 -d "projectId=106715" -d "testcycle=4228287" -d "result=$(echo $(cat $file) | basenc --base64url | tr -d \\n)"             
+             curl --request POST https://pulse-7.qtestnet.com/webhook/53b32c57-368c-4b9b-a4e0-af11389c5438 -d "projectId=$my_project" -d "testcycle=$my_TestCycle" -d "result=$(echo $(cat $file) | basenc --base64url | tr -d \\n)"             
              echo -e ------------------------------------------------------------
            done         
           
