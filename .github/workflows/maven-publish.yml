@@ -46,6 +46,6 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: Result OutPut
-          path: /home/runner/work/JunitOpenTestReporting/JunitOpenTestReporting/target/surefire-reports # or path/to/artifact
+          path: ./target/surefire-reports # or path/to/artifact
           if-no-files-found: error # 'warn' or 'ignore' are also available, defaults to `warn`
     
