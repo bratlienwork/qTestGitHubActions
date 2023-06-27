@@ -32,7 +32,6 @@ jobs:
       # Loop thru all xml file in the surefire-reports base64url the file send to pulse  (note base64 creates + base64 creates with -)
         if: success() || failure() # always run even if the previous step fails
         run: |
-           #my_path='./target/surefire-reports'
            my_project=106715
            my_TestCycle=4228432
            for file in $( find ./target/surefire-reports -type f -name "*.xml")
