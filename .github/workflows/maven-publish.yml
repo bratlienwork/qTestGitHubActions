@@ -36,7 +36,7 @@ jobs:
         run: |
            my_project=106715
            my_TestCycle=4228432
-           echo -e qTestProject
+           echo -e $qTestProject
            for file in $( find ./target/surefire-reports -type f -name "*.xml")
            do
              echo -e ___________________________________________________________
