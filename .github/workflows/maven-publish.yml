@@ -33,11 +33,15 @@ jobs:
         if: success() || failure() # always run even if the previous step fails
         env:
          qTestProject: ${{ secrets.PROJECTID }}
+         qTestPULSEURL: ${{ secrets.PULSEURL }}
+         qTestTESTCYCLE: ${{ secrets.TESTCYCLE }}
         run: |
            my_project=106715
            my_TestCycle=4228432
            echo -e ___________________________________________________________
            echo -e $qTestProject
+           echo -e $qTestPULSEURL
+           echo -e $qTestTESTCYCLE
            echo -e ___________________________________________________________
            for file in $( find ./target/surefire-reports -type f -name "*.xml")
            do
