@@ -48,7 +48,8 @@ jobs:
              echo -e ___________________________________________________________
              echo -e $file
              #curl --request POST https://pulse-7.qtestnet.com/webhook/53b32c57-368c-4b9b-a4e0-af11389c5438 -d "projectId=106715" -d "testcycle=4228287" -d "result=$(echo $(cat $file) | basenc --base64url | tr -d \\n)"             
-             curl --request POST https://pulse-7.qtestnet.com/webhook/53b32c57-368c-4b9b-a4e0-af11389c5438 -d "projectId=$my_project" -d "testcycle=$my_TestCycle" -d "result=$(echo $(cat $file) | basenc --base64url | tr -d \\n)"             
+             #curl --request POST https://pulse-7.qtestnet.com/webhook/53b32c57-368c-4b9b-a4e0-af11389c5438 -d "projectId=$my_project" -d "testcycle=$my_TestCycle" -d "result=$(echo $(cat $file) | basenc --base64url | tr -d \\n)"             
+             curl --request POST $qTestPULSEURL -d "projectId=$qTestProject" -d "testcycle=$qTestTESTCYCLE" -d "result=$(echo $(cat $file) | basenc --base64url | tr -d \\n)"             
              echo -e ------------------------------------------------------------
            done         
           
