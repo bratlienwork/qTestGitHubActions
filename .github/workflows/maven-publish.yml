@@ -29,8 +29,10 @@ jobs:
           mkdir -p results
       - name: Log_into_qTest
         run: |
-          log_on_result=$(curl --request POST ${{ secrets.LOG_IN_URL }} -H "accept: application/json" -H "Authorization: Basic cXRlc3QtYXBpOg==" -H "content-type: application/x-www-form-urlencoded" -d "grant_type=password" -d "username=p.bratlien@tricentis.com" -d "password=Travelport10!")
+          echo -e --------------------------------------------------------------------------------
+          log_on_result=$(curl --request POST ${{ secrets.LOG_IN_URL }} -H "accept: application/json" -H "Authorization: Basic cXRlc3QtYXBpOg==" -H "content-type: application/x-www-form-urlencoded" -d "grant_type=password" -d "username=${{ secrets.QTEST_USERID }}" -d "password=${{ secrets.QTEST_PASSWORD }}")
           echo $log_on_result
+          echo -e --------------------------------------------------------------------------------
       - name: Loop_Thru_Results_files
       # Loop thru all xml file in the surefire-reports base64url the file send to pulse  (note base64 creates + base64 creates with -)
         if: success() || failure() # always run even if the previous step fails
@@ -48,7 +50,7 @@ jobs:
              #curl --request POST https://pulse-7.qtestnet.com/webhook/53b32c57-368c-4b9b-a4e0-af11389c5438 -d "projectId=106715" -d "testcycle=4228287" -d "result=$(echo $(cat $file) | basenc --base64url | tr -d \\n)"             
              #curl --request POST https://pulse-7.qtestnet.com/webhook/53b32c57-368c-4b9b-a4e0-af11389c5438 -d "projectId=$my_project" -d "testcycle=$my_TestCycle" -d "result=$(echo $(cat $file) | basenc --base64url | tr -d \\n)"             
              curl --request POST $qTestPULSEURL -d "projectId=$qTestProject" -d "testcycle=$qTestTESTCYCLE" -d "result=$(echo $(cat $file) | basenc --base64url | tr -d \\n)"             
-             echo -e ------------------------------------------------------------
+             echo -e ___________________________________________________________
            done         
           
       - name: Upload results
