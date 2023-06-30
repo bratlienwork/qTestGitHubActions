@@ -29,7 +29,7 @@ jobs:
           mkdir -p results
       - name: Log_into_qTest
         run: |
-          curl --request POST${{ secrets.LOG_IN_URL }} -H "accept: application/json" -H "Authorization: Basic cXRlc3QtYXBpOg==" -H "content-type: application/x-www-form-urlencoded" -d "grant_type=password" -d "username=p.bratlien@tricentis.com" -d "password=Travelport10!"
+          curl --request POST ${{ secrets.LOG_IN_URL }} -H "accept: application/json" -H "Authorization: Basic cXRlc3QtYXBpOg==" -H "content-type: application/x-www-form-urlencoded" -d "grant_type=password" -d "username=p.bratlien@tricentis.com" -d "password=Travelport10!"
       - name: Loop_Thru_Results_files
       # Loop thru all xml file in the surefire-reports base64url the file send to pulse  (note base64 creates + base64 creates with -)
         if: success() || failure() # always run even if the previous step fails
