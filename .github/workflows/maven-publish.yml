@@ -29,7 +29,7 @@ jobs:
           mkdir -p results
       - name: Log_into_qTest
         run: |
-          log_on_result=$(curl --request POST ${{ secrets.LOG_IN_URL }} -H "accept: application/json" -H "Authorization: Basic cXRlc3QtYXBpOg==" -H "content-type: application/x-www-form-urlencoded" -d "grant_type=password" -d "username=${{ secrets.QTEST_USERID }}" -d "password=${{ secrets.QTEST_PASSWORD }}")
+          log_on_result=$(curl -w --request POST ${{ secrets.LOG_IN_URL }} -H "accept: application/json" -H "Authorization: Basic cXRlc3QtYXBpOg==" -H "content-type: application/x-www-form-urlencoded" -d "grant_type=password" -d "username=${{ secrets.QTEST_USERID }}" -d "password=${{ secrets.QTEST_PASSWORD }}")
           echo -e --------------------------------------------------------------------------------
           echo -e "results: $log_on_result"
           access_token=$(printf '%s\n' "$log_on_result" | jq -r .result.access_token) || exit
