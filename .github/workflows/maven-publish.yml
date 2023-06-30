@@ -30,7 +30,7 @@ jobs:
       - name: Log_into_qTest
         run: |
           echo -e --------------------------------------------------------------------------------
-          log_on_result=$(curl --request POST ${{ secrets.LOG_IN_URL }} -H "accept: application/json" -H "Authorization: Basic c2FkZW1vLnF0ZXN0bmV0LmNvbTo" -H "content-type: application/x-www-form-urlencoded" -d "grant_type=password" -d "username=${{ secrets.QTEST_USERID }}" -d "password=${{ secrets.QTEST_PASSWORD }}")
+          log_on_result=$(curl -kv --request POST ${{ secrets.LOG_IN_URL }} -H "accept: application/json" -H "Authorization: Basic cXRlc3QtYXBpOg==" -H "content-type: application/x-www-form-urlencoded" -d "grant_type=password" -d "username=${{ secrets.QTEST_USERID }}" -d "password=${{ secrets.QTEST_PASSWORD }}")
           echo $log_on_result
           echo -e --------------------------------------------------------------------------------
       - name: Loop_Thru_Results_files
