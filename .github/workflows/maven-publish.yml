@@ -33,8 +33,8 @@ jobs:
           echo -e --------------------------------------------------------------------------------
           echo -e "results: $log_on_result"
           echo -e "json fun: $log_on_result | json"
-          #access_token=$(printf '%s\n' "$log_on_result" | jq -r .request.access_token) || exit
-          #echo -e $access_token
+          access_token=$(printf '%s\n' "$log_on_result" | jq -r .access_token) || exit
+          echo -e $access_token
           echo -e --------------------------------------------------------------------------------
       - name: Loop_Thru_Results_files
       # Loop thru all xml file in the surefire-reports base64url the file send to pulse  (note base64 creates + base64 creates with -)
