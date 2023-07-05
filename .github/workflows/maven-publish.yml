@@ -31,7 +31,7 @@ jobs:
         run: |
           log_on_result=$(curl -w --request POST ${{ secrets.LOG_IN_URL }} -H "accept: application/json" -H "Authorization: Basic cXRlc3QtYXBpOg==" -H "content-type: application/x-www-form-urlencoded" -d "grant_type=password" -d "username=${{ secrets.QTEST_USERID }}" -d "password=${{ secrets.QTEST_PASSWORD }}" | grep access_token | sed "s/access_token: //g" | tr -d '\r')
           echo -e --------------------------------------------------------------------------------
-          echo -e "Grep Fun: $log_on_result | grep access_token"
+          echo -e $log_on_result | grep "access_token"
           echo -e "results: $log_on_result"
           echo -e --------------------------------------------------------------------------------
       - name: Loop_Thru_Results_files
