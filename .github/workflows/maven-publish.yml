@@ -30,7 +30,7 @@ jobs:
       - name: Log_into_qTest
         run: |
           #log_on_result=$(curl -w --request POST ${{ secrets.LOG_IN_URL }} -H "accept: application/json" -H "Authorization: Basic cXRlc3QtYXBpOg==" -H "content-type: application/x-www-form-urlencoded" -d "grant_type=password" -d "username=${{ secrets.QTEST_USERID }}" -d "password=${{ secrets.QTEST_PASSWORD }}")
-          log_on_result=$(curl -w --request POST https://sademo.qtestnet.com/oauth/token -H https://sademo.qtestnet.com/oauth/token"accept: application/json" -H "Authorization: Basic cXRlc3QtYXBpOg==" -H "content-type: application/x-www-form-urlencoded" -d "grant_type=password" -d "username=p.bratlien@tricentis.com" -d "password=Travelport10!")
+          log_on_result=$(curl -w --request POST https://sademo.qtestnet.com/oauth/token -H "accept: application/json" -H "Authorization: Basic cXRlc3QtYXBpOg==" -H "content-type: application/x-www-form-urlencoded" -d "grant_type=password" -d "username=p.bratlien@tricentis.com" -d "password=Travelport10!")
           #| grep access_token | sed "s/access_token: //g" | tr -d '\r'
           echo -e --------------------------------------------------------------------------------
           echo -e $log_on_result | grep "access_token"
