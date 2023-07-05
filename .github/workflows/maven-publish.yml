@@ -27,15 +27,7 @@ jobs:
           #mvn test
           mvn --batch-mode --update-snapshots package
           mkdir -p results
-      - name: Log_into_qTest
-        run: |
-          #log_on_result=$(curl -w --request POST ${{ secrets.LOG_IN_URL }} -H "accept: application/json" -H "Authorization: Basic cXRlc3QtYXBpOg==" -H "content-type: application/x-www-form-urlencoded" -d "grant_type=password" -d "username=${{ secrets.QTEST_USERID }}" -d "password=${{ secrets.QTEST_PASSWORD }}")
-          curl 'https://sademo.qtestnet.com/oauth/token' -H 'accept: application/json' -H 'Authorization: Basic cXRlc3QtYXBpOg==' -H 'content-type: application/x-www-form-urlencoded' -d 'grant_type=password' -d 'username=p.bratlien%40tricentis.com' -d 'password=Travelport10!'
-          #| grep access_token | sed "s/access_token: //g" | tr -d '\r'
-          echo -e --------------------------------------------------------------------------------
-          echo -e $log_on_result | grep "access_token"
-          echo -e "results: $log_on_result"
-          echo -e --------------------------------------------------------------------------------
+    
       - name: Loop_Thru_Results_files
       # Loop thru all xml file in the surefire-reports base64url the file send to pulse  (note base64 creates + base64 creates with -)
         if: success() || failure() # always run even if the previous step fails
