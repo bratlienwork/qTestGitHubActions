@@ -32,6 +32,7 @@ jobs:
           log_on_result=$(curl -w --request POST ${{ secrets.LOG_IN_URL }} -H "accept: application/json" -H "Authorization: Basic cXRlc3QtYXBpOg==" -H "content-type: application/x-www-form-urlencoded" -d "grant_type=password" -d "username=${{ secrets.QTEST_USERID }}" -d "password=${{ secrets.QTEST_PASSWORD }}")
           echo -e --------------------------------------------------------------------------------
           echo -e "results: $log_on_result"
+          echo -e "json fun: $log_on_result | json"
           #access_token=$(printf '%s\n' "$log_on_result" | jq -r .request.access_token) || exit
           #echo -e $access_token
           echo -e --------------------------------------------------------------------------------
