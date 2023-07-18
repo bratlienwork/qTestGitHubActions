@@ -44,7 +44,6 @@ jobs:
         if: success() || failure() # always run even if the previous step fails
         #To protect the url projectid and test cycle create repository secrets for each and store the values there
         # link to https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository
-        
         run: |
            for file in $( find ./target/surefire-reports -type f -name "*.xml")
            do
