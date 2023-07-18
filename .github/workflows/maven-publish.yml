@@ -32,7 +32,7 @@ jobs:
         if: success() || failure() # always run even if the previous step fails
         run: |
          echo -e ${{secrets.LOG_IN_URL}}
-         Logon_RESPONSE=$(curl ${{secrets.LOG_IN_URL}} -H "accept: application/json" -H "Authorization: Basic cXRlc3QtYXBpOg==" -H "content-type: application/x-www-form-urlencoded" -d "grant_type=password" -d "username=p.bratlien%40tricentis.com" -d "password=Travelport10!")
+         Logon_RESPONSE=$(curl ${{secrets.LOG_IN_URL}} -H "accept: application/json" -H "Authorization: Basic cXRlc3QtYXBpOg==" -H "content-type: application/x-www-form-urlencoded" -d "grant_type=password" -d "username=p.bratlien%40tricentis.com" -d "password=${{QTEST_PASSWORD}}")
          access_token=$(echo $Logon_RESPONSE | awk -F\" '{print $4}' )
          echo $Logon_RESPONSE
          echo $access_token
