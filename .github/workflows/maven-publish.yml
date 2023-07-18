@@ -29,7 +29,10 @@ jobs:
           mkdir -p results
       - name: Log_On_qTest
       #log on to qTest
-        if: success() || failure() # always run even if the previous step fails         
+        if: success() || failure() # always run even if the previous step fails 
+        env:
+         paulPassword: ${{ QTEST_PASSWORD }}
+         paulUID: ${{ QTEST_USERID }}
         run: |
          Logon_RESPONSE=$(curl ${{secrets.LOG_IN_URL}} -H "accept: application/json" -H "Authorization: Basic cXRlc3QtYXBpOg==" -H "content-type: application/x-www-form-urlencoded" -d "grant_type=password" -d "username=p.bratlien%40tricentis.com" -d "password=Travelport1!")
          access_token=$(echo $Logon_RESPONSE | awk -F\" '{print $4}' )
