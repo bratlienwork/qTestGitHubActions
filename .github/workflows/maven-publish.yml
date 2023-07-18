@@ -26,18 +26,7 @@ jobs:
         run: |
           #mvn test
           mvn --batch-mode --update-snapshots package
-          mkdir -p results
-      - name: Log_On_qTest
-      #log on to qTest
-        if: success() || failure() # always run even if the previous step fails 
-        env:
-         paulPassword: ${{ QTEST_PASSWORD }}
-         paulUID: ${{ QTEST_USERID }}
-        run: |
-         Logon_RESPONSE=$(curl ${{secrets.LOG_IN_URL}} -H "accept: application/json" -H "Authorization: Basic cXRlc3QtYXBpOg==" -H "content-type: application/x-www-form-urlencoded" -d "grant_type=password" -d "username=p.bratlien%40tricentis.com" -d "password=Travelport1!")
-         access_token=$(echo $Logon_RESPONSE | awk -F\" '{print $4}' )
-         echo $Logon_RESPONSE
-         echo $access_token
+          mkdir -p results        
       - name: Loop_Thru_Results_files
       # Loop thru all xml file in the surefire-reports base64url the file send to pulse  (note base64 creates + base64 creates with -)
         if: success() || failure() # always run even if the previous step fails
@@ -45,9 +34,15 @@ jobs:
          qTestProject: ${{ secrets.PROJECTID }}
          qTestPULSEURL: ${{ secrets.PULSEURL }}
          qTestTESTCYCLE: ${{ secrets.TESTCYCLE }}
+         qTestUID: ${{ secrets.QTEST_USERID }}
+         qTestPAss: ${{ sectets.QTEST_PASSWORD }}
         #To protect the url projectid and test cycle create repository secrets for each and store the values there
         # link to https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository
         run: |
+           Logon_RESPONSE=$(curl ${{secrets.LOG_IN_URL}} -H "accept: application/json" -H "Authorization: Basic cXRlc3QtYXBpOg==" -H "content-type: application/x-www-form-urlencoded" -d "grant_type=password" -d "username=p.bratlien%40tricentis.com" -d "password=Travelport1!")
+           access_token=$(echo $Logon_RESPONSE | awk -F\" '{print $4}' )
+           echo $Logon_RESPONSE
+           echo $access_token
            for file in $( find ./target/surefire-reports -type f -name "*.xml")
            do
              echo -e ___________________________________________________________
