@@ -39,10 +39,12 @@ jobs:
         #To protect the url projectid and test cycle create repository secrets for each and store the values there
         # link to https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository
         run: |
+           echo -e Start LOGON___________________________________________________________
            Logon_RESPONSE=$(curl ${{secrets.LOG_IN_URL}} -H "accept: application/json" -H "Authorization: Basic cXRlc3QtYXBpOg==" -H "content-type: application/x-www-form-urlencoded" -d "grant_type=password" -d "username=p.bratlien%40tricentis.com" -d "password=Travelport1!")
            access_token=$(echo $Logon_RESPONSE | awk -F\" '{print $4}' )
            echo $Logon_RESPONSE
            echo $access_token
+           echo -e END LOGON___________________________________________________________
            for file in $( find ./target/surefire-reports -type f -name "*.xml")
            do
              echo -e ___________________________________________________________
