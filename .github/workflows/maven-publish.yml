@@ -42,7 +42,7 @@ jobs:
            echo -e Start LOGON___________________________________________________________
            Logon_RESPONSE=$(curl ${{secrets.LOG_IN_URL}} -H "accept: application/json" -H "Authorization: Basic cXRlc3QtYXBpOg==" -H "content-type: application/x-www-form-urlencoded" -d "grant_type=password" -d "username=$qTestUID" -d "password=$qTestPAss")
            #access_token=$(echo $Logon_RESPONSE | awk -F\" '{print $4}' )
-           echo $Logon_RESPONSE | jq '.access_token'
+           #echo $Logon_RESPONSE | jq '.access_token'
            MyAccessToken=$(echo $Logon_RESPONSE | jq '.access_token')
            echo $MyAccessToken
            #echo $Logon_RESPONSE
@@ -50,10 +50,11 @@ jobs:
            echo -e END LOGON___________________________________________________________
            echo -e Start Create Testcycle______________________________________________           
            TC_FOLDER=$(date +'%Y-%m-%dT%H:%M:%S')
-           TestCycleCreate_Response=$(curl "https://sademo.qtestnet.com//api/v3/projects/106715/test-cycles" -H "Content-Type: application/json" -H "Authorization: Bearer 442b958e-9a57-4ad5-99ea-37d50e9f0661" -d "{ \"name\": \"Demo Test-Cycle$TC_FOLDER\",  \"Description\" : \"Created via datacreater Github\"}" )
+           #TestCycleCreate_Response=$(curl "https://sademo.qtestnet.com//api/v3/projects/106715/test-cycles" -H "Content-Type: application/json" -H "Authorization: Bearer 442b958e-9a57-4ad5-99ea-37d50e9f0661" -d "{ \"name\": \"Demo Test-Cycle$TC_FOLDER\",  \"Description\" : \"Created via datacreater Github\"}" )
+           TestCycleCreate_Response=$(curl "https://sademo.qtestnet.com//api/v3/projects/106715/test-cycles" -H "Content-Type: application/json" -H "Authorization: Bearer $MyAccessToken" -d "{ \"name\": \"Demo Test-Cycle$TC_FOLDER\",  \"Description\" : \"Created via datacreater Github\"}" )
            #echo $TestCycleCreate_Response | jq '.'
-           echo $TestCycleCreate_Response | jq '.id'
-           NewTestCycle=echo $TestCycleCreate_Response | jq '.id'
+           #echo $TestCycleCreate_Response | jq '.id'
+           NewTestCycle=$(echo $TestCycleCreate_Response | jq '.id')
            echo $NewTestCycle
            echo -e END Create Testcycle________________________________________________
            echo -e Start upload Results________________________________________________
