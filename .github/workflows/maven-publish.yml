@@ -48,6 +48,7 @@ jobs:
            echo -e Start Create Testcycle___________________________________________________________
            echo "date::$(date +'%Y-%m-%d')"
            echo "NOW=$(date +'%Y-%m-%dT%H:%M:%S')"
+           TC_FOLDER=$(date +'%Y-%m-%dT%H:%M:%S')
            TestCycleCreate_Response=$(curl "https://sademo.qtestnet.com//api/v3/projects/106715/test-cycles" -H "Content-Type: application/json" -H "Authorization: Bearer 442b958e-9a57-4ad5-99ea-37d50e9f0661" -d "{ \"name\": \"Demo Test-Cycle today\",  \"Description\" : \"Created via datacreater Github\"}" )
            echo $TestCycleCreate_Response
            echo -e END Create Testcycle___________________________________________________________
