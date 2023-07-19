@@ -46,7 +46,7 @@ jobs:
            echo -e Start Create Testcycle______________________________________________           
            TC_FOLDER=$(date +'%Y-%m-%dT%H:%M:%S')
            APIURL="https://sademo.qtestnet.com//api/v3/projects/$qTestProject/test-cycles"
-           TestCycleCreate_Response=$(curl $APIURL -H "Content-Type: application/json" -H "Authorization: Bearer $MyAccessToken" -d "{ \"name\": \"Demo Test-Cycle$TC_FOLDER\",  \"Description\" : \"Created via datacreater Github\"}" )
+           TestCycleCreate_Response=$(curl $APIURL -H "Content-Type: application/json" -H "Authorization: Bearer $MyAccessToken" -d "{ \"name\": \"Github Test-Cycle for $TC_FOLDER\",  \"Description\" : \"Created via Github actions on $TC_FOLDER\"}" )
            NewTestCycle=$(echo $TestCycleCreate_Response | jq '.id')
            echo -e END Create Testcycle________________________________________________
            echo -e Start upload Results________________________________________________
