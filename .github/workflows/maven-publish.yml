@@ -35,7 +35,7 @@ jobs:
         env:
          qTestProject: ${{ secrets.PROJECTID }}
          qTestPULSEURL: ${{ secrets.PULSEURL }}
-         qTestTESTCYCLE: ${{ secrets.TESTCYCLE }}
+         #qTestTESTCYCLE: ${{ secrets.TESTCYCLE }}
          qTestUID: ${{ secrets.QTEST_USERID }}
          qTestPAss: ${{ secrets.QTEST_PASSWORD }}
         #To protect the url projectid and test cycle create repository secrets for each and store the values there
@@ -44,20 +44,18 @@ jobs:
            echo -e Start LOGON___________________________________________________________
            Logon_RESPONSE=$(curl ${{secrets.LOG_IN_URL}} -H "accept: application/json" -H "Authorization: Basic cXRlc3QtYXBpOg==" -H "content-type: application/x-www-form-urlencoded" -d "grant_type=password" -d "username=$qTestUID" -d "password=$qTestPAss")
            MyAccessToken=$(echo $Logon_RESPONSE | jq '.access_token' | sed 's/^.//;s/.$//')           
-           echo -e END LOGON___________________________________________________________
            echo -e Start Create Testcycle______________________________________________           
            TC_FOLDER=$(date +'%Y-%m-%dT%H:%M:%S')
            APIURL="https://sademo.qtestnet.com//api/v3/projects/$qTestProject/test-cycles"
            TestCycleCreate_Response=$(curl $APIURL -H "Content-Type: application/json" -H "Authorization: Bearer $MyAccessToken" -d "{ \"name\": \"Github Test-Cycle for $TC_FOLDER\",  \"Description\" : \"Created via Github actions on $TC_FOLDER\"}" )
            NewTestCycle=$(echo $TestCycleCreate_Response | jq '.id')
-           echo -e END Create Testcycle________________________________________________
            echo -e Start upload Results________________________________________________
            for file in $( find ./target/surefire-reports -type f -name "*.xml")
            do
              echo -e "Working on file -----------------------------------> $file"
              Parser_Response=$(curl --request POST $qTestPULSEURL -d "projectId=$qTestProject" -d "testcycle=$NewTestCycle" -d "result=$(echo $(cat $file) | basenc --base64url | tr -d \\n)" )             
            done         
-           echo -e End upload Results________________________________________________
+           
           
       - name: Upload results
         if: success() || failure() # always run even if the previous step fails
