@@ -50,8 +50,8 @@ jobs:
            echo -e END LOGON___________________________________________________________
            echo -e Start Create Testcycle______________________________________________           
            TC_FOLDER=$(date +'%Y-%m-%dT%H:%M:%S')
-           TestCycleCreate_Response=$(curl "https://sademo.qtestnet.com//api/v3/projects/106715/test-cycles" -H "Content-Type: application/json" -H "Authorization: Bearer 442b958e-9a57-4ad5-99ea-37d50e9f0661" -d "{ \"name\": \"Demo Test-Cycle$TC_FOLDER\",  \"Description\" : \"Created via datacreater Github\"}" )
-           #TestCycleCreate_Response=$(curl "https://sademo.qtestnet.com//api/v3/projects/106715/test-cycles" -H "Content-Type: application/json" -H "Authorization: Bearer $MyAccessToken" -d "{ \"name\": \"Demo Test-Cycle$TC_FOLDER\",  \"Description\" : \"Created via datacreater Github\"}" )
+           #TestCycleCreate_Response=$(curl "https://sademo.qtestnet.com//api/v3/projects/106715/test-cycles" -H "Content-Type: application/json" -H "Authorization: Bearer 442b958e-9a57-4ad5-99ea-37d50e9f0661" -d "{ \"name\": \"Demo Test-Cycle$TC_FOLDER\",  \"Description\" : \"Created via datacreater Github\"}" )
+           TestCycleCreate_Response=$(curl "https://sademo.qtestnet.com//api/v3/projects/106715/test-cycles" -H "Content-Type: application/json" -H "Authorization: Bearer $MyAccessToken" -d "{ \"name\": \"Demo Test-Cycle$TC_FOLDER\",  \"Description\" : \"Created via datacreater Github\"}" )
            #echo $TestCycleCreate_Response | jq '.'
            #echo $TestCycleCreate_Response | jq '.id'
            NewTestCycle=$(echo $TestCycleCreate_Response | jq '.id')
