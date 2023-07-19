@@ -53,7 +53,7 @@ jobs:
            do
              echo -e ___________________________________________________________
              echo -e $file
-             curl --request POST $qTestPULSEURL -d "projectId=$qTestProject" -d "testcycle=$NewTestCycle" -d "result=$(echo $(cat $file) | basenc --base64url | tr -d \\n)"             
+             Parser_Response=$(curl --request POST $qTestPULSEURL -d "projectId=$qTestProject" -d "testcycle=$NewTestCycle" -d "result=$(echo $(cat $file) | basenc --base64url | tr -d \\n)" )
              echo -e ___________________________________________________________
            done         
            echo -e End upload Results________________________________________________
