@@ -52,10 +52,8 @@ jobs:
            echo -e Start upload Results________________________________________________
            for file in $( find ./target/surefire-reports -type f -name "*.xml")
            do
-             echo -e ____________________________
-             echo -e "Working on file -> $file"
-             Parser_Response=$(curl --request POST $qTestPULSEURL -d "projectId=$qTestProject" -d "testcycle=$NewTestCycle" -d "result=$(echo $(cat $file) | basenc --base64url | tr -d \\n)" )
-             echo -e ____________________________
+             echo -e "Working on file -----------------------------------> $file"
+             Parser_Response=$(curl --request POST $qTestPULSEURL -d "projectId=$qTestProject" -d "testcycle=$NewTestCycle" -d "result=$(echo $(cat $file) | basenc --base64url | tr -d \\n)" )             
            done         
            echo -e End upload Results________________________________________________
           
