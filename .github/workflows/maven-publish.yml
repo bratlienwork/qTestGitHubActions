@@ -46,7 +46,7 @@ jobs:
            echo $access_token
            echo -e END LOGON___________________________________________________________
            echo -e Start Create Testcycle___________________________________________________________
-           TestCycleCreate_Response=$(curl "https://sademo.qtestnet.com//api/v3/projects/$qTestProject/test-cycles" -H "Content-Type: application/json" -H "Authorization: Bearer 442b958e-9a57-4ad5-99ea-37d50e9f0661" -d "{
+           TestCycleCreate_Response=$(curl "https://sademo.qtestnet.com//api/v3/projects/106715/test-cycles" -H "Content-Type: application/json" -H "Authorization: Bearer 442b958e-9a57-4ad5-99ea-37d50e9f0661" -d "{
            \"name\": \"Demo Test-Cycle Today\", \"Description\" : \"Created via datacreater github actions\"}
            echo $TestCycleCreate_Response"
            echo -e END Create Testcycle___________________________________________________________
