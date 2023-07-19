@@ -52,7 +52,7 @@ jobs:
            TC_FOLDER=$(date +'%Y-%m-%dT%H:%M:%S')
            TestCycleCreate_Response=$(curl "https://sademo.qtestnet.com//api/v3/projects/106715/test-cycles" -H "Content-Type: application/json" -H "Authorization: Bearer 442b958e-9a57-4ad5-99ea-37d50e9f0661" -d "{ \"name\": \"Demo Test-Cycle$TC_FOLDER\",  \"Description\" : \"Created via datacreater Github\"}" )
            #TestCycleCreate_Response=$(curl "https://sademo.qtestnet.com//api/v3/projects/106715/test-cycles" -H "Content-Type: application/json" -H "Authorization: Bearer $MyAccessToken" -d "{ \"name\": \"Demo Test-Cycle$TC_FOLDER\",  \"Description\" : \"Created via datacreater Github\"}" )
-           echo $TestCycleCreate_Response | jq '.'
+           #echo $TestCycleCreate_Response | jq '.'
            #echo $TestCycleCreate_Response | jq '.id'
            NewTestCycle=$(echo $TestCycleCreate_Response | jq '.id')
            echo $NewTestCycle
@@ -62,7 +62,7 @@ jobs:
            do
              echo -e ___________________________________________________________
              echo -e $file
-             curl --request POST $qTestPULSEURL -d "projectId=$qTestProject" -d "testcycle=$qTestTESTCYCLE" -d "result=$(echo $(cat $file) | basenc --base64url | tr -d \\n)"             
+             curl --request POST $qTestPULSEURL -d "projectId=$qTestProject" -d "testcycle=$NewTestCycle" -d "result=$(echo $(cat $file) | basenc --base64url | tr -d \\n)"             
              echo -e ___________________________________________________________
            done         
            echo -e End upload Results________________________________________________
