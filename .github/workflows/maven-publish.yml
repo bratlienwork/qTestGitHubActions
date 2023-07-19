@@ -55,7 +55,6 @@ jobs:
              echo -e ____________________________
              echo -e "Working on file -> $file"
              Parser_Response=$(curl --request POST $qTestPULSEURL -d "projectId=$qTestProject" -d "testcycle=$NewTestCycle" -d "result=$(echo $(cat $file) | basenc --base64url | tr -d \\n)" )
-             #echo $Parser_Response
              echo -e ____________________________
            done         
            echo -e End upload Results________________________________________________
