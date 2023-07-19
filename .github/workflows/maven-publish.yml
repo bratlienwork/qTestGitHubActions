@@ -35,7 +35,7 @@ jobs:
          qTestPULSEURL: ${{ secrets.PULSEURL }}
          qTestTESTCYCLE: ${{ secrets.TESTCYCLE }}
          qTestUID: ${{ secrets.QTEST_USERID }}
-         qTestPAss: ${{ sectets.QTEST_PASSWORD }}
+         qTestPAss: ${{ secrets.QTEST_PASSWORD }}
         #To protect the url projectid and test cycle create repository secrets for each and store the values there
         # link to https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository
         run: |
