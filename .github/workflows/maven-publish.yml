@@ -41,10 +41,10 @@ jobs:
         run: |
            echo -e Start LOGON___________________________________________________________
            Logon_RESPONSE=$(curl ${{secrets.LOG_IN_URL}} -H "accept: application/json" -H "Authorization: Basic cXRlc3QtYXBpOg==" -H "content-type: application/x-www-form-urlencoded" -d "grant_type=password" -d "username=$qTestUID" -d "password=$qTestPAss")
-           access_token=$(echo $Logon_RESPONSE | awk -F\" '{print $4}' )
+           #access_token=$(echo $Logon_RESPONSE | awk -F\" '{print $4}' )
            echo $Logon_RESPONSE | jq '.access_token'
-           echo $Logon_RESPONSE
-           echo $access_token
+           #echo $Logon_RESPONSE
+           #echo $access_token
            echo -e END LOGON___________________________________________________________
            echo -e Start Create Testcycle______________________________________________           
            TC_FOLDER=$(date +'%Y-%m-%dT%H:%M:%S')
