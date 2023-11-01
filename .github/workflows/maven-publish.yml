@@ -54,8 +54,7 @@ jobs:
            do
              echo -e "Working on file -----------------------------------> $file"
              Parser_Response=$(curl --request POST $qTestPULSEURL -d "projectId=$qTestProject" -d "testcycle=$NewTestCycle" -d "result=$(echo $(cat $file) | basenc --base64url | tr -d \\n)" )             
-           done         
-           
+           done                   
           
       - name: Upload results
         if: success() || failure() # always run even if the previous step fails
