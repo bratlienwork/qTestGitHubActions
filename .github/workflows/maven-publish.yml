@@ -49,7 +49,7 @@ jobs:
            APIURL="https://sademo.qtestnet.com//api/v3/projects/$qTestProject/test-cycles"
            TestCycleCreate_Response=$(curl $APIURL -H "Content-Type: application/json" -H "Authorization: Bearer $MyAccessToken" -d "{ \"name\": \"Github Test-Cycle for $TC_FOLDER\",  \"Description\" : \"Created via Github actions on $TC_FOLDER\"}" )
            NewTestCycle=$(echo $TestCycleCreate_Response | jq '.id')
-           echo -e Start upload Results________________________________________________-----
+           echo -e Start upload Results________________________________________________----
            for file in $( find ./target/surefire-reports -type f -name "*.xml")
            do
              echo -e "Working on file -----------------------------------> $file"
